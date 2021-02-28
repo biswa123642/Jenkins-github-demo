@@ -1,22 +1,39 @@
-pipeline {
+pipeline{
+    //Directives
     agent any
+    tools {
+        maven 'maven'
+    }
+
     stages {
-    	stage('Git-checkout') {
-	    steps {
-	        git credentialsId: 'github', url: 'https://github.com/cooldsachin/CI-with-Jenkins-in-AWS-Demo.git'
-	    }
-	}
-	stage('build') {
-            bat 'mvn package'
-                    }
-		} 
+        // Specify various stage with in stages
+
+        // stage 1. Build
+        stage ('Build'){
+            steps {
+                sh 'mvn clean install package'
             }
         }
-	
-	stage('Deploy') {
+
+        // Stage2 : Testing
+        stage ('Test'){
+            steps {
+                echo ' testing......'
+
+            }
+        }
+	// stage3 : publish artifact to nexus
+	stage ('publish to nexus'){
 	    steps {
-		nexusPublisher nexusInstanceId: '1234', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'C:\\Program Files (x86)\\Jenkins\\jobs\\sonar-job\\workspace\\project\\target\\ProjectIGI-1.1.war']], mavenCoordinate: [artifactId: 'projectRnD', groupId: 'com.ci.jenkins', packaging: 'war', version: '1.3']]]
+	    
+	    }
+	}
+	
+	// stage4 : Deploying
+	stage ('Deploy'){
+	    steps {
+	        echo 'deploying.......'
 	    }
 	}
     }
-}	
+}
