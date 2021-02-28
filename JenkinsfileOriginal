@@ -25,7 +25,7 @@ pipeline{
 	// stage3 : publish artifact to nexus
 	stage ('publish to nexus'){
 	    steps {
-	        nexusArtifactUploader artifacts: [[artifactId: 'projectRnD', classifier: '', file: 'target/projectRnD-1.1.war', type: 'war']], credentialsId: 'f37a907d-08f2-4129-8eb1-0076bdbc618f', groupId: 'com.ci.jenkins', nexusUrl: '18.214.89.34', nexusVersion: 'nexus3', protocol: 'http', repository: 'biswajit', version: '1.1'
+	        nexusArtifactUploader artifacts: [[artifactId: 'projectRnD', classifier: '', file: '/project/target/projectRnD-1.1.war', type: 'war']], credentialsId: 'f37a907d-08f2-4129-8eb1-0076bdbc618f', groupId: 'com.ci.jenkins', nexusUrl: '18.214.89.34', nexusVersion: 'nexus3', protocol: 'http', repository: 'biswajit', version: '1.1'
 	    
 	    }
 	}
